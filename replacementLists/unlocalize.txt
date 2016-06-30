@@ -1,4 +1,4 @@
-﻿#List file
+﻿#List file for standard English.
 Aren't Are not
 aren't are not
 Can't Cannot

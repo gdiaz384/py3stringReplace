@@ -1,37 +1,37 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 """
 Description:
-py3str_Replace.py replaces strings in a text file with other strings from a replacement table.
+py3str_Replace.py replaces strings in a text file with other strings from a replacement list.
 
-- The replacement table is a text file with the first space used as a delimiter or first space after quoted text.
+- The replacement list is a text file with the first space used as a delimiter or first space after quoted text.
 - New file is UTF-8 encoded.
 - Use showMatching option to see what would be replaced. 
 
 Usage: python py3stringReplace.py myinput.txt myTable.txt
 #will output myinput.txt.sr.txt
 
-Current version: 0.1.0
+Current version: 0.1
 Last Modified: 30June16
 License: any
 
 ##stop reading now##
 
 Todo list:
-- (feature) "" should be usable in replacement table
+- find bugs
 """
 
-import argparse                #used to add command line options
-import os.path                   #test if file exists
-import sys                          #end program on fail condition
-import io                            #manipulate files (open/read/write/close)
+import argparse              #used to add command line options
+import os.path                #test if file exists
+import sys                      #end program on fail condition
+import io                        #manipulate files (open/read/write/close)
 from io import IOBase     #test if variable is a file object (an "IOBase" object)
 from pathlib import Path  #override file in file system with another, experimental library
 
 usage='\n Usage: python py3stringReplace.py myInputFile.txt myReplacementTable.txt'
 
 #add command line options
-command_Line_parser=argparse.ArgumentParser(description='Description: Replaces strings in text files using a replacement table.' + usage)
+command_Line_parser=argparse.ArgumentParser(description='Description: Replaces strings in text files using a replacement list.' + usage)
 command_Line_parser.add_argument("inputFile", help="the text file to process",type=str)
 command_Line_parser.add_argument("replacementList", help="the text file with replacement pairs",type=str)
 command_Line_parser.add_argument("-o", "--output", help="specify the output file name, default is to append '.mod.txt'")
