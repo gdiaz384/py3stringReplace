@@ -1,6 +1,8 @@
 ﻿#List file for standard English.
 Aren't Are not
 aren't are not
+"Are not you" Are you not
+"are not you" are you not
 Can't Cannot
 can't cannot
 C'mon Come on
@@ -12,15 +14,31 @@ couldn't could not
 #pie two
 Didn't did not
 didn't did not
+"Did not you" Did you not
+"did not you" did you not
 Don't Do not
 don't do not
 Doesn't Does not
 doesn't does not 
+"Does not it" Does it not
+"does not it" does it not
+Hasn't Has not
+hasn't has not
+"Has not it" Has it not
+"has not it" has it not
+Haven't Have not
+haven't have not
+"Have not they" Have they not
+"have not they" have they not
+He'll He will
+he'll he will
 He's He is
 he's he is
 Huh? What?
 It's It is
 it's it is
+It'll It will
+it'll it will
 Isn't Is not
 isn't is not
 I'll I will
@@ -30,17 +48,27 @@ it'll it will
 I've I have
 Gonna Going to
 gonna going to
+Gotten Become
+gotten become
 Jeez Honestly
 jeez honestly
 Must've Must have
 must've must have
 Mustn't Must not
 mustn't must not
+Nope No
+nope no
+"See ya!" See you!
+"See ya." See you.
 She's She is
+She'll She will
+she'll she will
+Sheesh Honestly
+sheesh honestly
 Shouldn't Should not
 shouldn't should not
-Thanks Thank you
-thanks thank you
+"Sure is." Indeed.
+"Sure is!" Indeed!
 They're They are
 they're they are
 They'll They will
@@ -51,24 +79,48 @@ There'll There will
 there'll there will
 That's That is
 that's that is
+This'll This will
+this'll this will
 They're They are
 they're they are
 Wanna Want to
 wanna want to
+Wasn't Was not
+wasn't was not
+"Was not it" Was it not
+"was not it" was it not
 We'll We will
 we'll we will
 We're We are
 we're we are
+Weren't Were not
+weren't were not
+"Were not you" Were you not 
+"were not you" were you not 
+We've We have
+we've we have
 What's What is
 what's what is
+What're What are
+what're what are
+Where's Where is
+where's where is
+Who's Who is
+who's who is
 Won't Will not
 won't will not
 Wouldn't Would not
 wouldn't would not
+Why's Why is
+why's why is
+You'd You would
+you'd you would
 You'll You will
 you'll you will
 You're You are
 you're you are
+You've You have
+you've you have
 Yup yes
 yup yes
 Yeah Yes
@@ -76,4 +128,3 @@ yeah yes
 ?! ?
 !? ?
 !! !
-"are not you" are you not

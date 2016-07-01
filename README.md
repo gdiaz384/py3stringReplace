@@ -21,9 +21,9 @@ py3stringReplace -h
 py3stringReplace --help
 py3stringReplace myscript.txt unlocalize.txt
 py3stringReplace myscript.txt unlocalize.txt -o myscript.unlocalized.txt
+py3stringReplace myscript.txt unlocalize.txt --output myscript.unlocalized.txt
 
 Advanced Usage:
-py3stringReplace myscript.txt unlocalize.txt --output myscript.unlocalized.txt
 py3stringReplace myscript.txt unlocalize.txt -nc
 py3stringReplace myscript.txt unlocalize.txt --noCopy
 py3stringReplace myscript.txt unlocalize.txt -sm
@@ -47,7 +47,7 @@ To string replace files in a directory: (OSX/Linux)
 TODO: put stuff here
 ```
 
-## Download+Install Guide:
+## Download & Install Guide:
 ```
 Latest Version: 0.1
 In Development: 0.2
@@ -57,19 +57,26 @@ In Development: 0.2
 3. Place py3stringReplace.exe in your enviornmental path
   - To find places to put it: >echo %path%
 4. (optional) rename it to something memorable
-5. create a text file of "match pair" values. See **Release Notes** and **replacementLists\unlocalize.txt** for additional information.
+5. Create a text file to use as a replacementList.txt. See **Replacement List Syntax** and **replacementLists\unlocalize.txt** for additional information.
 6. Refer to the **Example Usage Guide** above for usage.
 
-## Release Notes:
+## Replacement List Syntax:
 
 - The replacementList.txt is made of of space-seperated match pairs.
 - A reference replacementList.txt can be found at **replacementLists\unlocalize.txt**
-- A "match pair" is "theStringToReplace" and "theReplacement"
-- Examples:
-  - They're they are   -means: theStringToReplace=They're, theReplacement=they are
-  - Can't Can not   -means: theStringToReplace=Can't, theReplacement=Can not
-  - "I cannot" I can    -means: theStringToReplace=I cannot, theReplacement=I can
-- The match pair delimiter is the first space used or the first space after quoted text.
+- A "match pair" specifies theStringToReplace" and theReplacement.
+- The delimiter is the first space used or the first space after quoted text.
+
+match pair | theStringToReplace | theReplacement
+--- | --- | ---
+They're they are | They're | they are
+Can't Cannot | Can't | Cannot
+"I cannot" I can | I cannot | I can
+!? ? | !? | ?
+"See ya." See you. | See ya. | See you.
+"Master Shuga" Shuga-sama | Master Shuga | Shuga-sama
+colour color | colour | color
+check cheque | check | cheque
 - Match pairs are case sensitive.
 - To debug the syntax for entering match pairs use the --debug option.
 - The syntax for replacementList.txt is as follows:
@@ -79,17 +86,19 @@ In Development: 0.2
   - Empty lines are ignored.
   - Whitespace is ignored.
   - Non-empty lines with only whitespace are ignored.
-- Replacements are performed out of order. The order of match pairs in replacementTable.txt is not important.
-- The output file will be UTF-8 encoded. To change the encoding, use Notepad++.
+  - The order of match pairs in replacementTable.txt is not important.
+
+## Release Notes:
+- Replacements are performed out of order. To perform ordered replacements, use a second list.
+- The output file will be UTF-8 encoded. To change the encoding, use [Notepad++](//notepad-plus-plus.org/download).
 
 ## Dependencies
-
-- Python 3.4+
-- To compile: pip, pyinstaller
+- [Python 3.4+](//www.python.org/downloads)
+- To compile: pip, [pyinstaller](http://www.pyinstaller.org)
 
 ## Compile(exe) Guide:
 
-Remember to change the line ending back to not-broken-because-of-github if downloading from github directly using Notepad++ before attempting to compile. pyinstaller compatible encodings for .py files are ANSI and UTF-8 w/o BOM.
+Remember to change the line ending back to not-broken-because-of-github if downloading from github directly using [Notepad++](//notepad-plus-plus.org/download) before attempting to compile. pyinstaller compatible encodings for .py files are ANSI and UTF-8 w/o BOM.
 
 ```
 >python --version   #requires 3.4+
