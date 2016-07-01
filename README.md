@@ -47,7 +47,7 @@ To string replace files in a directory: (OSX/Linux)
 TODO: put stuff here
 ```
 
-## Download & Install Guide:
+## Download and Install Guide:
 ```
 Latest Version: 0.1
 In Development: 0.2
@@ -62,10 +62,10 @@ In Development: 0.2
 
 ## Replacement List Syntax:
 
-- The replacementList.txt is made of of space-seperated match pairs.
+- The replacementList.txt is made up of line seperated "match pairs."
+- A "match pair" specifies theStringToReplace and theReplacement.
+- The match pair delimiter is the first space or the first space after quoted text.
 - A reference replacementList.txt can be found at **replacementLists\unlocalize.txt**
-- A "match pair" specifies theStringToReplace" and theReplacement.
-- The delimiter is the first space used or the first space after quoted text.
 
 match pair | theStringToReplace | theReplacement
 --- | --- | ---
@@ -79,18 +79,20 @@ colour color | colour | color
 check cheque | check | cheque
 - Match pairs are case sensitive.
 - To debug the syntax for entering match pairs use the --debug option.
-- The syntax for replacementList.txt is as follows:
+  - py3stringReplace myscript.txt unlocalize.txt -d > pairs.txt
+- The syntax for replacementList.txt is unforgiving and as follows:
   - The first line is ignored.
   - The last line must be an empty line. The list may not end in a match pair.
   - Lines that start with # indicate a comment.
   - Empty lines are ignored.
   - Whitespace is ignored.
   - Non-empty lines with only whitespace are ignored.
-  - The order of match pairs in replacementTable.txt is not important.
+  - The order of match pairs in replacementList.txt is not important.
 
 ## Release Notes:
 - Replacements are performed out of order. To perform ordered replacements, use a second list.
 - The output file will be UTF-8 encoded. To change the encoding, use [Notepad++](//notepad-plus-plus.org/download).
+- If downloading a replacementList.txt from github directly instead of using a release.zip, remember to change the line ending back to Windows before attempting to use it by using [Notepad++](//notepad-plus-plus.org/download).
 
 ## Dependencies
 - [Python 3.4+](//www.python.org/downloads)
