@@ -9,6 +9,7 @@ py3stringReplace replaces strings in text files based upon a user defined list.
 - Precompiled binaries for Windows.
 - Scripting friendly
 - Cross platform
+- Supports arbitary e
 
 ## Example Usage Guide:
 
@@ -17,15 +18,18 @@ Syntax: py3stringReplace [-h] [-o output.txt] [-nc] [-sm] [-d] inputFile.txt rep
 Note: [ ] means optional.
 
 ```
+Syntax help:
 py3stringReplace -h
 py3stringReplace --help
+
+Basic Usage:
 py3stringReplace myscript.txt unlocalize.txt
 py3stringReplace myscript.txt unlocalize.txt -o myscript.unlocalized.txt
 py3stringReplace myscript.txt unlocalize.txt --output myscript.unlocalized.txt
-
-Advanced Usage:
 py3stringReplace myscript.txt unlocalize.txt -nc
 py3stringReplace myscript.txt unlocalize.txt --noCopy
+
+Advanced Usage:
 py3stringReplace myscript.txt unlocalize.txt -sm
 py3stringReplace myscript.txt unlocalize.txt --showMatching
 py3stringReplace myscript.txt unlocalize.txt -sm > matching.txt
@@ -33,6 +37,12 @@ py3stringReplace myscript.txt unlocalize.txt --showMatching > matching.txt
 py3stringReplace myscript.txt unlocalize.txt -d
 py3stringReplace myscript.txt unlocalize.txt --debug
 py3stringReplace myscript.txt unlocalize.txt --debug > replacementTable.txt
+py3stringReplace myscript.txt unlocalize.txt -e utf-8
+py3stringReplace myscript.txt unlocalize.txt -e windows-1251
+py3stringReplace myscript.txt unlocalize.txt --encoding windows-1251
+py3stringReplace myscript.txt unlocalize.txt -ce windows-1251
+py3stringReplace myscript.txt unlocalize.txt --consoleEncoding utf-8
+py3stringReplace myscript.txt unlocalize.txt -e windows-1251 -ce utf-8 -sm
 python py3stringReplace.py myscript.txt unlocalize.txt
 
 To string replace files in a directory: (Windows)
@@ -49,8 +59,8 @@ TODO: put stuff here
 
 ## Download and Install Guide:
 ```
-Latest Version: 0.1
-In Development: 0.2
+Latest Version: 0.2
+In Development: 0.3
 ```
 1. Click [here](//github.com/gdiaz384/py3stringReplace/releases) or on "releases" at the top to download the latest version.
 2. Extract py3stringReplace.exe from the archive of your OS/architecture.
@@ -75,6 +85,7 @@ Can't Cannot | Can't | Cannot
 !? ? | !? | ?
 "See ya." See you. | See ya. | See you.
 "Master Shuga" Shuga-sama | Master Shuga | Shuga-sama
+"Юки Нагато" Нагато Юки | Юки Нагато | Нагато Юки 
 colour color | colour | color
 check cheque | check | cheque
 - Match pairs are case sensitive.
@@ -90,9 +101,12 @@ check cheque | check | cheque
   - The order of match pairs in replacementList.txt is not important.
 
 ## Release Notes:
-- Replacements are performed out of order. To perform ordered replacements, use a second list.
-- The output file will be UTF-8 encoded. To change the encoding, use [Notepad++](//notepad-plus-plus.org/download).
-- If downloading a replacementList.txt from github directly instead of using a release.zip, remember to change the line ending back to Windows before attempting to use it by using [Notepad++](//notepad-plus-plus.org/download).
+- Replacements are performed out of order. To perform ordered replacements, use a second replacement list.
+- The input files will be read/written as utf-8 encoded by default. To change the encoding use the -e option.
+- Output to stdout is utf-8 formatted by default. To change the console encoding use the -ce option.
+- The replacementList.txt is read as utf-8 by default. To change the encoding use the -rle option.
+- Due to console limitations, consider using [Notepad++](//notepad-plus-plus.org/download) to change the input to utf-8 when debuging.
+- If downloading a replacementList.txt from github directly instead of using a release.zip, remember to change the line ending back to Windows before attempting to use it by using Notepad++ (if applicable).
 
 ## Dependencies
 - [Python 3.4+](//www.python.org/downloads)
@@ -100,7 +114,8 @@ check cheque | check | cheque
 
 ## Compile(exe) Guide:
 
-Remember to change the line ending back to not-broken-because-of-github if downloading from github directly using [Notepad++](//notepad-plus-plus.org/download) before attempting to compile. pyinstaller compatible encodings for .py files are ANSI and UTF-8 w/o BOM.
+- Remember to change the line ending back to not-broken-because-of-github if downloading from github directly using [Notepad++](//notepad-plus-plus.org/download) before attempting to compile. 
+- Pyinstaller compatible character encodings for .py files are ANSI and utf-8 w/o BOM.
 
 ```
 >python --version   #requires 3.4+

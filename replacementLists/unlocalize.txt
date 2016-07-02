@@ -3,6 +3,8 @@ Aren't Are not
 aren't are not
 "Are not you" Are you not
 "are not you" are you not
+"Are not we" Are not we
+"are not we" are not we
 Can't Cannot
 can't cannot
 C'mon Come on
