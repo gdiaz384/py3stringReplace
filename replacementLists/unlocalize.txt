@@ -9,6 +9,8 @@ Can't Cannot
 can't cannot
 C'mon Come on
 c'mon come on
+Could've Could have
+could've could have
 Couldn't Could not
 couldn't could not
 'Cuz Because
@@ -21,9 +23,11 @@ didn't did not
 Don't Do not
 don't do not
 Doesn't Does not
-doesn't does not 
+doesn't does not
 "Does not it" Does it not
 "does not it" does it not
+Hadn't Had not
+hadn't had not
 Hasn't Has not
 hasn't has not
 "Has not it" Has it not
@@ -50,16 +54,22 @@ it'll it will
 I've I have
 Gonna Going to
 gonna going to
-Gotten Become
-gotten become
+Hadn't Had not
+hadn't had not
 Jeez Honestly
 jeez honestly
+Might've Might have
+might've might have
 Must've Must have
 must've must have
 Mustn't Must not
 mustn't must not
+Needn't Need not
+needn't need not
 Nope No
 nope no
+Outta Out of
+outta out of
 "See ya!" See you!
 "See ya." See you.
 She's She is
@@ -69,8 +79,12 @@ Sheesh Honestly
 sheesh honestly
 Shouldn't Should not
 shouldn't should not
+Should've Should have
+should've should have
 "Sure is." Indeed.
 "Sure is!" Indeed!
+That'll That will
+that'll that will
 They're They are
 they're they are
 They'll They will
@@ -85,6 +99,8 @@ This'll This will
 this'll this will
 They're They are
 they're they are
+They've They have
+they've they have
 Wanna Want to
 wanna want to
 Wasn't Was not
@@ -105,6 +121,7 @@ What's What is
 what's what is
 What're What are
 what're what are
+Whatcha What are you
 Where's Where is
 where's where is
 Who's Who is
@@ -113,6 +130,8 @@ Won't Will not
 won't will not
 Wouldn't Would not
 wouldn't would not
+Would've Would have
+would've would have
 Why's Why is
 why's why is
 You'd You would
@@ -123,7 +142,7 @@ You're You are
 you're you are
 You've You have
 you've you have
-Yup yes
+Yup Yes
 yup yes
 Yeah Yes
 yeah yes

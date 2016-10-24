@@ -9,7 +9,7 @@ py3stringReplace replaces strings in text files based upon a user defined list.
 - Precompiled binaries for Windows.
 - Scripting friendly
 - Cross platform
-- Supports arbitary e
+- Supports arbitary encodings
 
 ## Example Usage Guide:
 
@@ -60,7 +60,7 @@ TODO: put stuff here
 ## Download and Install Guide:
 ```
 Latest Version: 0.2
-In Development: 0.3
+Development: stopped. PM me with a bug, feature or compile request if something needs updating.
 ```
 1. Click [here](//github.com/gdiaz384/py3stringReplace/releases) or on "releases" at the top to download the latest version.
 2. Extract py3stringReplace.exe from the archive of your OS/architecture.
@@ -107,6 +107,81 @@ check cheque | check | cheque
 - The replacementList.txt is read as utf-8 by default. To change the encoding use the -rle option.
 - Due to console limitations, consider using [Notepad++](//notepad-plus-plus.org/download) to change the input to utf-8 when debuging.
 - If downloading a replacementList.txt from github directly instead of using a release.zip, remember to change the line ending back to Windows before attempting to use it by using Notepad++ (if applicable).
+
+## Advanced Usage Guide:
+
+- Make sure stringReplace.exe is in %path% and put the following in a file called C:\Users\User\fix.bat. 
+- Then just "fix mysubs.ass" or "fix *" and the rest will be automatic.
+
+```
+@echo off
+setlocal
+
+if /i "%~1" equ "" (goto usageHelp)
+if /i "%~1" equ "?" (goto usageHelp)
+if /i "%~1" equ "/?" (goto usageHelp)
+if /i "%~1" equ "h" (goto usageHelp)
+if /i "%~1" equ "-h" (goto usageHelp)
+
+::set defaults
+set default_unlocalizeTxt=c:\unlocalize.txt
+set stringReplaceExe=py3stringreplace
+
+::read inputs
+set file=%~1
+if "%~2" equ "" (set replacementList=%default_unlocalizeTxt%) else (set replacementList=%~2)
+
+::validate input
+if not exist "%file%" (echo   Error: "%file%" does not exist.
+goto end)
+if not exist "%replacementList%" (echo   Error: Replacement list "%replacementList%" does not exist. 
+goto end)
+
+if "%file%" equ "*" goto batchMode
+
+::core logic
+"%stringReplaceExe%" "%file%" "%replacementList%" -nc
+
+goto end
+
+
+:batchMode
+set tempfile=temp_%random%.temp
+set tempScript=temp_%random%.cmd
+if exist "%tempfile%" del "%tempfile%"
+if exist "%tempScript%" del "%tempScript%"
+
+dir /b *.txt >> %tempfile% 2>nul
+dir /b *.ass >> %tempfile% 2>nul
+
+for /f "delims=*" %%i in (%tempfile%) do echo call "%~nx0" "%%i" %2>>%tempScript%
+if exist "%tempfile%" del "%tempfile%"
+
+type "%tempScript%"
+call "%tempScript%"
+::type "%tempScript%"
+if exist "%tempScript%" del "%tempScript%"
+
+goto end
+
+:usageHelp
+echo   "fix" uses py3stringReplace with a predefined list to manipulate text files.
+echo   Dependencies: py3stringReplace, c:\wordList.txt
+echo.
+echo   Syntax:
+echo   fix myfile  or   fix *
+echo   Examples:
+echo   fix myfile.txt
+echo   fix myfile.ass
+echo   fix myfile.ass C:\unlocalize.txt
+echo   fix *
+echo.
+echo   Notes: fix * will activate batch mode for .txt and .ass files
+echo.
+
+:end
+endlocal
+```
 
 ## Dependencies
 - [Python 3.4+](//www.python.org/downloads)
