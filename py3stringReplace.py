@@ -11,9 +11,9 @@ py3str_Replace.py replaces strings in a text file with other strings from a repl
 Usage: python py3stringReplace.py myinput.txt myTable.txt
 #will output myinput.txt.sr.txt
 
-Current version: 0.2
-Last Modified: 02July16
-License: any
+Current version: 0.3
+Last Modified: 2023Dec14
+License: Public domain
 
 ##stop reading now##
 
@@ -32,7 +32,7 @@ defaultConsoleEncodingType='utf-8'
 defaultReplacementListEncodingType='utf-8'
 
 #set static internal use variables
-currentVersion='v0.2 - 02July16'
+currentVersion='v0.3 - 2023Dec14'
 usageHelp='\n Usage: python py3stringReplace.py myInputFile.txt myReplacementTable.txt'
 
 #add command line options
@@ -82,11 +82,15 @@ if os.path.isfile(replaceListName) != True:
 replaceListFile=open(replaceListName,'r',encoding=replacementListEncodingType)
 replacementTable=dict({})
 
-next(replaceListFile)  #skip first line
+#Uses the following syntax to update the dictionary:
+#myDictionary["color"] = "red"
+#next(replaceListFile)  #skip first line
 for line in replaceListFile:
     if len(line.strip()) != 0:
         if line.count('"') == 2:
             replacementTable[line.split(sep='"')[1].strip()]=line.split(sep='"')[2][1:-1].strip()
+        elif line.count('"') == 4:
+            replacementTable[str(line.split(sep='" "',maxsplit=1)[0]+'"').strip()]=str('"'+line.split(sep='" "',maxsplit=1)[1]).strip()
         elif line[0] == '#':
             pass
         elif line[0] == ' ':
