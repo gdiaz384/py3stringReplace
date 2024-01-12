@@ -8,14 +8,16 @@ py3stringReplace replaces strings in text files based upon a user defined list.
 - Command Line Interface (CLI).
 - Precompiled binaries for Windows.
 - Scripting friendly.
-- Cross platform (python 3).
+- Cross platform (Python 3).
 - Supports various character [encodings](https://docs.python.org/3.4/library/codecs.html#standard-encodings). 
 
 ## Example Usage Guide:
 
 Syntax: py3stringReplace [-h] [-o output.txt] [-nc] [-sm] [-d] inputFile.txt replacementList.txt
 
-Note: [ ] means optional.
+Notes:
+- [ ] means optional.
+- Flags that only specify the encoding for this or that file were not included above. See Advanced Usage below.
 
 ```
 Syntax help:
@@ -59,7 +61,7 @@ TODO: put stuff here
 
 ## Download and Install Guide:
 ```
-Latest Version: 0.3
+Latest Version: 0.31
 Development: stopped. Open an issue for bugs, feature or compile requests.
 ```
 1. Click [here](//github.com/gdiaz384/py3stringReplace/releases) or on "releases" at the top to download the latest version.
@@ -113,12 +115,16 @@ one two three | one | two three
  
 ## Release Notes:
 - Replacements are performed out of order. To perform ordered replacements, use a second replacement list.
-- Ordered replacements might be possible in Python >=3.7, but that has not been tested.
+- Ordered replacements might be possible/happening in Python >=3.7, but this has not been tested.
 - Dealing with character encoding:
     - The input files will be read/written as utf-8 encoded by default. To change the encoding use the -e option.
+    - To use a different output encoding than input encoding, use --outputEncoding (-oe).
+        - Combined with an empty replacement list, this can convert between different formats similar to the unix `iconv` tool, although this is very hacky.
+        - Proper support for direct conversions might be added later, and maybe replacementList as a .csv too.
     - Output to stdout is utf-8 formatted by default. To change the console encoding use the -ce option.
     - The replacementList.txt is read as utf-8 by default. To change the encoding use the -rle option.
     - Due to console limitations, consider using [Notepad++](//notepad-plus-plus.org/download) to change the input to utf-8 when debuging.
+        - On newer versions of Windows (~Win 10 1809+), consider changing the console encoding to native utf-8. There is a checkbox for it in the change locale window.
     - [https://docs.python.org/3.4/library/codecs.html#standard-encodings](https://docs.python.org/3.4/library/codecs.html#standard-encodings) 
 - If downloading a replacementList.txt from github directly instead of using a release.zip, remember to change the line ending back to not-broken before attempting to use it by using Notepad++ or VS Code (if applicable).
 

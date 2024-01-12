@@ -5,14 +5,12 @@ Description:
 py3str_Replace.py replaces strings in a text file with other strings from a replacement table.
 
 - The replacement table is a text file with the first space used as a delimiter or first space after quoted text.
-- New file is UTF-8 encoded.
+- New file is UTF-8 encoded unless --outputEncoding (-oe) is specified.
 - Use showMatching option to see what would be replaced. 
 
 Usage: python py3stringReplace.py myinput.txt myTable.txt
 #will output myinput.txt.sr.txt
 
-Current version: 0.3
-Last Modified: 2023Dec14
 License: Public domain
 
 ##stop reading now##
@@ -32,31 +30,42 @@ defaultConsoleEncodingType='utf-8'
 defaultReplacementListEncodingType='utf-8'
 
 #set static internal use variables
-currentVersion='v0.3 - 2023Dec14'
+currentVersion='v0.31 - 2024Jan11'
 usageHelp='\n Usage: python py3stringReplace.py myInputFile.txt myReplacementTable.txt'
 
 #add command line options
 command_Line_parser=argparse.ArgumentParser(description='Description: Replaces strings in text files using a replacement table.' + usageHelp)
 command_Line_parser.add_argument("inputFile", help="the text file to process",type=str)
+command_Line_parser.add_argument("-e", "--encoding", help="specify input/output file encoding, default=utf-8",default=defaultEncodingType,type=str)
 command_Line_parser.add_argument("replacementList", help="the text file with match pairs",type=str)
+command_Line_parser.add_argument("-rle", "--replacementListEncoding", help="specify encoding for the replacementList.txt, default=utf-8",default=defaultReplacementListEncodingType,type=str)
 command_Line_parser.add_argument("-o", "--output", help="specify the output file name, default is to append '.mod.txt'")
+command_Line_parser.add_argument("-oe", "--outputEncoding", help="specify output file encoding, default=utf-8",default=defaultEncodingType,type=str)
+
 command_Line_parser.add_argument("-nc", "--noCopy", help="modify the existing file instead of creating a copy, default=create a copy, Takes precedence over -o",action="store_true")
 command_Line_parser.add_argument("-sm", "--showMatching", help="show matches in stdout and exit",action="store_true")
-command_Line_parser.add_argument("-d", "--debug", help="show generated replacementTable and exit",action="store_true")
-command_Line_parser.add_argument("-e", "--encoding", help="specify input/output file encoding, default=utf-8",default=defaultEncodingType,type=str)
+
 command_Line_parser.add_argument("-ce", "--consoleEncoding", help="specify encoding for stdout, default=utf-8",default=defaultConsoleEncodingType,type=str)
-command_Line_parser.add_argument("-rle", "--replacementListEncoding", help="specify encoding for the replacementList.txt, default=utf-8",default=defaultReplacementListEncodingType,type=str)
+command_Line_parser.add_argument("-d", "--debug", help="show generated replacementTable and exit",action="store_true")
 
 #parse command line settings
 command_Line_arguments=command_Line_parser.parse_args()
 inputFileName=command_Line_arguments.inputFile
+encodingType=command_Line_arguments.encoding
 replaceListName=command_Line_arguments.replacementList
+replacementListEncodingType=command_Line_arguments.replacementListEncoding
+outputEncodingType=command_Line_arguments.outputEncoding
+
 noCopy=command_Line_arguments.noCopy
 showMatching=command_Line_arguments.showMatching
-debug=command_Line_arguments.debug
-encodingType=command_Line_arguments.encoding
+
 consoleEncodingType=command_Line_arguments.consoleEncoding
-replacementListEncodingType=command_Line_arguments.replacementListEncoding
+debug=command_Line_arguments.debug
+
+#validate input settings
+if (outputEncodingType.lower() == 'shift-jis') or (outputEncodingType.lower() == 'shift_jis'):
+    print(('Warning: shift-jis detected as output encoding. Altering to cp932 as a workaround for a bug. Comment out the conversion code if this is not desired.').encode(consoleEncodingType))
+    outputEncodingType='cp932'
 
 if command_Line_arguments.output != None:
     outputFileName=command_Line_arguments.output
@@ -64,6 +73,7 @@ else:
     outputFileName=inputFileName+".mod.txt"
 
 #debug code
+#print(outputEncodingType)
 #print("inputFileName="+inputFileName)
 #print("replaceListName="+replaceListName)
 #print("outputFileName="+outputFileName)
@@ -82,7 +92,7 @@ if os.path.isfile(replaceListName) != True:
 replaceListFile=open(replaceListName,'r',encoding=replacementListEncodingType)
 replacementTable=dict({})
 
-#Uses the following syntax to update the dictionary:
+#Use the following syntax to update the dictionary:
 #myDictionary["color"] = "red"
 #next(replaceListFile)  #skip first line
 for line in replaceListFile:
@@ -109,7 +119,7 @@ if debug == True:
 
 myInputFile=io.open(inputFileName,mode='r',encoding=encodingType)
 if showMatching!=True:
-    myWriteFile=io.open(outputFileName,mode='w',encoding=encodingType)
+    myWriteFile=io.open(outputFileName,mode='w',encoding=outputEncodingType)
 else:
     myWriteFile=outputFileName
 
