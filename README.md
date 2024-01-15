@@ -60,27 +60,10 @@ To string replace files in a directory: (OSX/Linux)
 TODO: put stuff here
 ```
 
-## Download and Install Guide:
-```
-Latest Version: 0.4
-Development: Stopped. Open an issue for bugs, feature, or compile requests.
-```
-1. Download either the native executable `py3stringReplace.exe` or the python script `py3stringReplace.py`. To download the latest version:
-    - Click on on "Releases" at the side (desktop), or bottom (mobile), or [here](//github.com/gdiaz384/py3stringReplace/releases).
-    - Click on the green `< > Code` button at the top -> Download ZIP.
-2. Extract `py3stringReplace.exe` from the archive of your OS/architecture.
-    - Alternatively, always invoke using: `python py3stringReplace.py`
-3. Place `py3stringReplace.exe` in your enviornmental path. To find places to put it: 
-    - Start a command prompt or terminal. On Windows this is `cmd.exe`
-    - `echo %path%`
-4. (Optional) Rename `py3stringReplace.exe` to something memorable.
-5. Create a text file to use as a replacementList.txt. See **Replacement List Syntax** and `replacementLists\unlocalize.txt` for additional information and an example.
-6. Refer to the **Example Usage Guide** above for usage as well as `py3StringReplace --help`
-
 ## Replacement List Syntax:
 
-- The replacementList.txt is made up of line seperated "match pairs."
-- A "match pair" specifies `theStringToReplace` and `theReplacement`.
+- `replacementList.txt` is made up of line seperated `match pairs`
+- A `match pair` specifies `theStringToReplace` and `theReplacement`.
 - The match pair delimiter is the first space or, in the case of quoted text, the first space after quoted text.
 - To include quotation marks in `theReplacement` text, use exactly four of them.
 - A `replacementList.txt` example can be found at `replacementLists\unlocalize.txt`
@@ -142,13 +125,13 @@ one two three | one | two three
 - `replacementList.txt` is read as `utf-8` by default. To change the encoding use the `-rle` option.
 - Due to console limitations, consider using [Notepad++](//notepad-plus-plus.org/download) or VS Code to change the input to `utf-8` when debuging.
     - On newer versions of Windows (~Win 10 1809+), consider changing the console encoding to native `utf-8`. There is a checkbox for it in the change locale window.
-    - On older versions of Windows, attempting to use `utf-8` will make the console crash.
+    - On older versions of Windows, attempting to use `utf-8` via the related code page will make the console crash.
 - To print the currently active code page on Windows, open a command prompt and type `chcp`
 - Some character encodings cannot be converted to other encodings. When such errors occur, use the following error handling options:
     - [docs.python.org/3.4/library/codecs.html#error-handlers](//docs.python.org/3.4/library/codecs.html#error-handlers), and [More Examples](//www.w3schools.com/python/ref_string_encode.asp).
-    - The default error handler for input files is 'strict' which means 'crash the program if the encoding specified does not match the file perfectly'.
+    - The default error handler for input files is `strict` which means 'crash the program if the encoding specified does not match the file perfectly'.
     - The default error handler for the output file is `namereplace` and it requires Python 3.5+. For Python <=3.4, the default is `backslashreplace`
-        - These obnoxious error handlers were chosen to make it obvious that there were conversion errors but also not crash catastrophically and to make it easy to do ctrl+f replacements to fix the problem areas. If there are more than one or two such errors per file, then the chosen source file encodings are probably incorrect.
+        - These obnoxious error handlers were chosen to make it obvious that there were conversion errors but also not crash catastrophically and to make it easy to do ctrl+f replacements to fix any problems. If there are more than one or two such errors per file, then the chosen source file encodings are probably incorrect.
 - If the `chardet` library is available (Python 3.7+), it can be used to try to detect the character encoding of files via heuristics, but that is obviously very error prone.
     - To make it available: `pip install chardet`
     - The following library that actually implements chardet must also be present: `resources/dealWithEncoding.py`
@@ -229,23 +212,56 @@ echo.
 endlocal
 ```
 
-## Dependencies
+## Dependency Notes:
+
 - [Python 3.4+](//www.python.org/downloads). For Windows 7, use [this repository](//github.com/adang1345/PythonWin7/).
+    - Make sure `Add to Path` is checked/selected.
 - Optional: Improved text encoding detection for files requires the `chardet` library.
-    - The chardet library says it requires Python 3.7+: [pypi.org/project/chardet](//pypi.org/project/chardet/)
-    - Install using: `pip install chardet`
+    - The `chardet` library says it requires Python 3.7+: [pypi.org/project/chardet](//pypi.org/project/chardet/) Install using:
+        - #Install latest version of pip package manager.
+        - `python -m pip install --upgrade pip`   
+        - #Use `pip` to install `chardet`.
+        - `pip install chardet`                            
     - If this library is not available, then the default encoding of `utf-8` will always be used instead.
 - To compile: pip, [pyinstaller](//www.pyinstaller.org).
+    - #Use `pip` to install `pyinstaller`.
+    - `pip install pyinstaller`                            
 
-## Compile(exe) Guide:
+## Download and Install Guide:
+```
+Latest Version: 0.4
+Development: Stopped. Open an issue for bugs, feature, or compile requests.
+```
+1. Download either the native executable `py3stringReplace.exe` or the python script `py3stringReplace.py`. Pick one:
+    - Click on the green `< > Code` button at the top -> Download ZIP.
+    - Click on on "Releases" at the side (desktop), or bottom (mobile), or [here](//github.com/gdiaz384/py3stringReplace/releases).
+        - Download the appropriate binary for the OS and architecture.
+    - Advanced:
+        - Start a command prompt or terminal. On Windows this is `cmd.exe`
+        - `git clone github.com/gdiaz384/py3stringReplace`
+        - The above command requires git to be installed. Git is annoying to install on Windows due to some shell extensions it adds to explorer, but explaining how to get it to not be obnoxious is outside the scope of this guide.
+1. If using the `.py` file, see the **Dependency Notes** section. Install Python 3.7+ and the `chardet` library before continuing.
+    - Python may already be installed. Check by entering the following in a command prompt or terminal: `>python --version`
+    - The `.exe` files do not require Python or the `chardet` library to be installed as they bundle precompiled (.pyc) binary versions of the necessary libraries already. However, they are no longer portable across different operating systems, cannot benefit from improvements in the Python standard library, and cannot be easily updated.
+1. Extract all files including `py3stringReplace.exe` or `py3stringReplace.py` from the archive.
+1. Place `py3stringReplace.exe` or `py3stringReplace.py` in the enviornmental path. To find places to put it: 
+    - `>echo %path%`
+1. (Optional) Rename `py3stringReplace.exe` or `py3stringReplace.py` to something memorable.
+1. Open a command prompt or terminal and check it is in path using:
+    - If using the `.py`, always invoke it using: `>python py3stringReplace.py --version`
+    - If using the `.exe`, it can be invoked directly: `>py3stringReplace.exe --version`
+1. Create a text file to use as `replacementList.txt`. See **Replacement List Syntax** and `replacementLists\unlocalize.txt` for additional information and an example.
+1. Refer to the **Example Usage Guide** above for usage as well as `>py3StringReplace --help`
 
-- If downloading from github directly, remember to change the line ending back from broken-because-of-github by using [Notepad++](//notepad-plus-plus.org/download) before attempting to compile. 
+### Compile(exe) Guide:
+
+- If downloading from github directly, remember to change the line ending back from broken-because-of-github by using [Notepad++](//notepad-plus-plus.org/download) or VS Code before attempting to compile. 
 - Pyinstaller compatible character encodings for .py files are ascii, ansi, and utf-8 (without bom).
 
 ```
->python --version       #requires 3.4+. If using chardet, then 3.7+.
+>python --version       #requires 3.4+. If using chardet, then 3.7+ is required.
 >pip install pyinstaller
->pip install chardet     #optional
+>pip install chardet     #optional, but reccomended
 >pyinstaller --version  #to make sure it installed
 >pyinstaller --onefile py3stringReplace.py
 ```
