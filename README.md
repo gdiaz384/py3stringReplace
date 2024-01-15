@@ -6,18 +6,19 @@ py3stringReplace replaces strings in text files based upon a user defined list.
 
 - Automates tedious ctrl+f replacements.
 - Command Line Interface (CLI).
-- Precompiled binaries for Windows.
+- Precompiled binaries for x64 Windows.
 - Scripting friendly.
 - Cross platform (Python 3).
-- Supports various character [encodings](https://docs.python.org/3.4/library/codecs.html#standard-encodings). 
+- Supports various [character encodings](//docs.python.org/3.4/library/codecs.html#standard-encodings) and [error handing](//docs.python.org/3.4/library/codecs.html#error-handlers).
+    - For direct conversions from one character encoding schema to another, use: `py3iconv.py`
 
 ## Example Usage Guide:
 
-Syntax: py3stringReplace [-h] [-o output.txt] [-nc] [-sm] [-d] inputFile.txt replacementList.txt
+Syntax: `py3stringReplace [-h] [-o output.txt] [-nc] [-sm] [-d] inputFile.txt replacementList.txt`
 
 Notes:
-- [ ] means optional.
-- Flags that only specify the encoding for this or that file were not included above. See Advanced Usage below.
+- `[ ]` means optional.
+- Flags that only specify encoding and error handling options were not included above. See Advanced Usage below.
 
 ```
 Syntax help:
@@ -61,24 +62,28 @@ TODO: put stuff here
 
 ## Download and Install Guide:
 ```
-Latest Version: 0.31
-Development: stopped. Open an issue for bugs, feature or compile requests.
+Latest Version: 0.4
+Development: Stopped. Open an issue for bugs, feature, or compile requests.
 ```
-1. Click [here](//github.com/gdiaz384/py3stringReplace/releases) or on "releases" at the top to download the latest version.
-2. Extract py3stringReplace.exe from the archive of your OS/architecture.
-3. Place py3stringReplace.exe in your enviornmental path
-  - To find places to put it: >echo %path%
-4. (optional) rename it to something memorable
-5. Create a text file to use as a replacementList.txt. See **Replacement List Syntax** and **replacementLists\unlocalize.txt** for additional information.
-6. Refer to the **Example Usage Guide** above for usage.
+1. Download either the native executable `py3stringReplace.exe` or the python script `py3stringReplace.py`. To download the latest version:
+    - Click on on "Releases" at the side (desktop), or bottom (mobile), or [here](//github.com/gdiaz384/py3stringReplace/releases).
+    - Click on the green `< > Code` button at the top -> Download ZIP.
+2. Extract `py3stringReplace.exe` from the archive of your OS/architecture.
+    - Alternatively, always invoke using: `python py3stringReplace.py`
+3. Place `py3stringReplace.exe` in your enviornmental path. To find places to put it: 
+    - Start a command prompt or terminal. On Windows this is `cmd.exe`
+    - `echo %path%`
+4. (Optional) Rename `py3stringReplace.exe` to something memorable.
+5. Create a text file to use as a replacementList.txt. See **Replacement List Syntax** and `replacementLists\unlocalize.txt` for additional information and an example.
+6. Refer to the **Example Usage Guide** above for usage as well as `py3StringReplace --help`
 
 ## Replacement List Syntax:
 
 - The replacementList.txt is made up of line seperated "match pairs."
-- A "match pair" specifies theStringToReplace and theReplacement.
+- A "match pair" specifies `theStringToReplace` and `theReplacement`.
 - The match pair delimiter is the first space or, in the case of quoted text, the first space after quoted text.
-- To include quotation marks as literals, use exactly four of them.
-- A reference replacementList.txt can be found at **replacementLists\unlocalize.txt**
+- To include quotation marks in `theReplacement` text, use exactly four of them.
+- A `replacementList.txt` example can be found at `replacementLists\unlocalize.txt`
 
 match pair | theStringToReplace | theReplacement
 --- | --- | ---
@@ -99,39 +104,60 @@ one two three | one | two three
 
 - Match pairs are case sensitive.
 - To debug the syntax for entering match pairs use the --debug option.
-  - py3stringReplace myscript.txt unlocalize.txt -d > pairs.txt
+    - `py3stringReplace myscript.txt unlocalize.txt -d > pairs.txt`
 - The syntax for replacementList.txt is unforgiving and as follows:
-  - The first line is ignored.
-  - The last line must be an empty line. The list may not end in a match pair.
-  - Lines that start with # indicate a comment.
-  - Empty lines are ignored.
-  - Whitespace outside of quotation marks is ignored.
-  - Whitespace within quotation marks is preserved.
-  - Non-empty lines with only whitespace are ignored.
-  - The order of match pairs in replacementList.txt is not important, at least in Python <=3.6.
-  - Quotations marks (") are overloaded in order to provide an option for replacements to include them.
-    - Including 2 quotation marks means: split at the first space after the second quotation mark.
-    - Including 4 quotation marks means: split where there are two quotation marks and a space in the middle, preserving both.
- 
+    - The first line is ignored.
+    - The last line must be an empty line. The list may not end in a match pair.
+    - Lines that start with `#` indicate a comment.
+    - Empty lines are ignored.
+    - Non-empty lines with only whitespace are ignored.
+    - Whitespace outside of quotation marks is ignored.
+    - Whitespace within quotation marks `"` is preserved **if** it is also within two characters that are not whitespace. Otherwise, it will be ignored.
+    - The order of match pairs in replacementList.txt is not important, at least in Python <=3.6. It might be for Python 3.7+.
+    - Quotations marks `"` are overloaded in order to provide an option for replacements to include them.
+        - Including 2x quotation marks means: split at the first space after the second quotation mark. Ignore all quotation marks.
+        - Including 4x quotation marks means: split where there are two quotation marks and a space in the middle `" "` Preserve all quotation marks.
+
 ## Release Notes:
+
 - Replacements are performed out of order. To perform ordered replacements, use a second replacement list.
-- Ordered replacements might be possible/happening in Python >=3.7, but this has not been tested.
-- Dealing with character encoding:
-    - The input files will be read/written as utf-8 encoded by default. To change the encoding use the -e option.
-    - To use a different output encoding than input encoding, use --outputEncoding (-oe).
-        - Combined with an empty replacement list, this can convert between different formats similar to the unix `iconv` tool, although this is very hacky.
-        - Proper support for direct conversions might be added later, and maybe replacementList as a .csv too.
-    - Output to stdout is utf-8 formatted by default. To change the console encoding use the -ce option.
-    - The replacementList.txt is read as utf-8 by default. To change the encoding use the -rle option.
-    - Due to console limitations, consider using [Notepad++](//notepad-plus-plus.org/download) to change the input to utf-8 when debuging.
-        - On newer versions of Windows (~Win 10 1809+), consider changing the console encoding to native utf-8. There is a checkbox for it in the change locale window.
-    - [https://docs.python.org/3.4/library/codecs.html#standard-encodings](https://docs.python.org/3.4/library/codecs.html#standard-encodings) 
-- If downloading a replacementList.txt from github directly instead of using a release.zip, remember to change the line ending back to not-broken before attempting to use it by using Notepad++ or VS Code (if applicable).
+- Ordered replacements might be possible/happening in Python >=3.7 due to dictionaries becoming ordered, but that has not been tested.
+- If downloading a `replacementList.txt` from github directly instead of using a release.zip, remember to change the line ending back to not-broken before attempting to use it by using Notepad++ or VS Code (if applicable).
+
+### Dealing with character encoding:
+
+- Computers only understand 1's and 0's. The letter `A` is ultimately a series of 1's and 0's. How does a computer know to display `A`, `a`, `à`, or `あ`? By using a standardized encoding schema.
+- Due to various horrible and historical reasons, there is no way for computers to deterministically detect arbitrary character encodings from files. Automatic encoding detection is a lie. Those just use heuristics which can and will fail catastrophically eventually.
+- Thus, the encodings for the text files and the console must be specified at runtime, or something might break.
+- Supported encodings: [docs.python.org/3.4/library/codecs.html#standard-encodings](//docs.python.org/3.4/library/codecs.html#standard-encodings) Common encodings:
+    - `utf-8` - If at all possible, please only use `utf-8`, and use it for absolutely everything.
+    - `shift-jis` - Required and many Japanese text files, visual novels, games, archives, and media in general.
+    - `cp437` - This is the old IBM code page for English that Windows with an English locale often uses by default. Thus, this is very often the encoding used by cmd.
+    - `cp1252` - This is the code page for western european languages that Windows with an English locale often uses by default. Thus, this is very often the encoding used by cmd.
+- Files will be read/written as `utf-8` encoded by default. To change the encoding use the `-e` option.
+- To use a different output encoding than input encoding, use `--outputEncoding` (`-oe`).
+    - Combined with an empty replacement list, this can convert between different formats similar to the unix `iconv` tool, although this is very hacky. 
+    - Instead, use `py3iconv.py` for direct conversions. It has a simpler interface as well.
+- Output to stdout/console is `utf-8` formatted by default. To change the console encoding use the -ce option.
+- `replacementList.txt` is read as `utf-8` by default. To change the encoding use the `-rle` option.
+- Due to console limitations, consider using [Notepad++](//notepad-plus-plus.org/download) or VS Code to change the input to `utf-8` when debuging.
+    - On newer versions of Windows (~Win 10 1809+), consider changing the console encoding to native `utf-8`. There is a checkbox for it in the change locale window.
+    - On older versions of Windows, attempting to use `utf-8` will make the console crash.
+- To print the currently active code page on Windows, open a command prompt and type `chcp`
+- Some character encodings cannot be converted to other encodings. When such errors occur, use the following error handling options:
+    - [docs.python.org/3.4/library/codecs.html#error-handlers](//docs.python.org/3.4/library/codecs.html#error-handlers), and [More Examples](//www.w3schools.com/python/ref_string_encode.asp).
+    - The default error handler for input files is 'strict' which means 'crash the program if the encoding specified does not match the file perfectly'.
+    - The default error handler for the output file is `namereplace` and it requires Python 3.5+. For Python <=3.4, the default is `backslashreplace`
+        - These obnoxious error handlers were chosen to make it obvious that there were conversion errors but also not crash catastrophically and to make it easy to do ctrl+f replacements to fix the problem areas. If there are more than one or two such errors per file, then the chosen source file encodings are probably incorrect.
+- If the `chardet` library is available (Python 3.7+), it can be used to try to detect the character encoding of files via heuristics, but that is obviously very error prone.
+    - To make it available: `pip install chardet`
+    - The following library that actually implements chardet must also be present: `resources/dealWithEncoding.py`
+    - If both of the above are not available, then everything will be assumed to be `utf-8` if not otherwise specified.
 
 ## Advanced Usage Guide:
 
-- The idea is to type "fix mysubs.ass" or "fix *" and have the rest be automatic.
-- Make sure py3stringReplace.exe is in %path% and put the following in a file called C:\Users\User\fix.bat.
+- The idea is to type `fix mysubs.ass` or `fix *` and have the rest be automatic.
+- Make sure py3stringReplace.exe is in `%path%` and put the following in a file called `C:\Users\User\fix.bat`
 
 ```
 @echo off
@@ -174,7 +200,7 @@ if exist "%tempScript%" del "%tempScript%"
 dir /b *.txt >> %tempfile% 2>nul
 dir /b *.ass >> %tempfile% 2>nul
 
-for /f "delims=*" %%i in (%tempfile%) do echo call "%~nx0" "%%i" %2>>%tempScript%
+for /f "delims=*" %%i in (%tempfile%) do echo call "%~nx0" "%%i" "%~2">>%tempScript%
 if exist "%tempfile%" del "%tempfile%"
 
 type "%tempScript%"
@@ -204,21 +230,31 @@ endlocal
 ```
 
 ## Dependencies
-- [Python 3.4+](//www.python.org/downloads)
-- To compile: pip, [pyinstaller](http://www.pyinstaller.org)
+- [Python 3.4+](//www.python.org/downloads). For Windows 7, use [this repository](//github.com/adang1345/PythonWin7/).
+- Optional: Improved text encoding detection for files requires the `chardet` library.
+    - The chardet library says it requires Python 3.7+: [pypi.org/project/chardet](//pypi.org/project/chardet/)
+    - Install using: `pip install chardet`
+    - If this library is not available, then the default encoding of `utf-8` will always be used instead.
+- To compile: pip, [pyinstaller](//www.pyinstaller.org).
 
 ## Compile(exe) Guide:
 
 - If downloading from github directly, remember to change the line ending back from broken-because-of-github by using [Notepad++](//notepad-plus-plus.org/download) before attempting to compile. 
-- Pyinstaller compatible character encodings for .py files are ANSI and utf-8 w/o BOM.
+- Pyinstaller compatible character encodings for .py files are ascii, ansi, and utf-8 (without bom).
 
 ```
->python --version   #requires 3.4+
+>python --version       #requires 3.4+. If using chardet, then 3.7+.
 >pip install pyinstaller
+>pip install chardet     #optional
 >pyinstaller --version  #to make sure it installed
 >pyinstaller --onefile py3stringReplace.py
 ```
-Look for the output under the "dist" folder.
+Look for the output under the 'dist' folder.
 
-## License:
-Pick your License: Public Domain, GPL (any) or BSD (any) or MIT/Apache
+## Licenses:
+
+- Python standard library's [license](//docs.python.org/3/license.html).
+- chardet library's license is [LGPL v2+](https://pypi.org/project/chardet/).
+- pyinstaller's [license](//pyinstaller.org/en/stable/license.html).
+- For the .py files in this project, pick your license: Public Domain, GPL (any), or BSD (any), or MIT/Apache.
+- If compiled with pyinstaller and then also distributed outside of your organization, then the executable file(s) is/are subject to Python's license, and the chardet library is subject to LGPL.

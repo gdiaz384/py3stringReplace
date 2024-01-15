@@ -1,4 +1,4 @@
-﻿#List file for standard English.
+#List file for standard English.
 Aren't Are not
 aren't are not
 "Are not you" Are you not
