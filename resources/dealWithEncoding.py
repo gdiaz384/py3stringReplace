@@ -5,7 +5,7 @@ Description: A small helper library to help with dealing with text encoding in f
 
 Usage: See below. Like at the bottom.
 
-Pick your license: Public Domain, GPL (any), or BSD (any), or MIT/Apache
+License: See main project.
 
 ##stop reading now##
 
@@ -76,7 +76,7 @@ def ofThisFile(myFileName, rawCommandLineOption, fallbackEncoding):
                     print((myFileName+':'+str(detector.result)).encode(consoleEncoding))
                 print(('Warning: Using automatic encoding detection for file:\"'+str(myFileName)+'" as:\"'+str(temp)+'"').encode(consoleEncoding))
             #temp=detectEncoding(myFileName)
-            #So sometimes, like when detecting an ascii only file or a utf-8 file filled with only ascii, the chardet library will return with a confidence of 0.0 and the result will be None. When that happens, try to catch it and change the result from None to the default encoding. I am assuming this also happens if the confidence value is below some threshold like <0.2 or <0.5.
+            #So sometimes, like when detecting an ascii only file or a utf-8 file filled with only ascii, the chardet library will return with a confidence of 0.0 and the result will be None. When that happens, try to catch it and change the result from None to the default encoding. The assumption is that this also happens if the confidence value is below some threshold like <0.2 or <0.5.
             if temp == None:
                 if (printStuff == True) and (debug == True):
                     print(('Warning: Unable to detect encoding of file \''+myFileName+'\' with high confidence. Defaulting to:\''+fallbackEncoding+'\'').encode(consoleEncoding))
@@ -115,7 +115,7 @@ if dealWithEncodingLibraryIsAvailable == True:
     #or, to use only positional arguments
     inputEncodingType = dealWithEncoding.ofThisFile(inputFileName, command_Line_arguments.inputEncoding, defaultEncodingType)
 
-    #or, To detect encoding of a file with the chardet library that has already been determined to exist, and does not consider user preferences, fallback encoding, or None return from chardet library:
+    #or, To detect encoding of a file with the chardet library that has already been determined to exist, and does not consider user preferences, fallback encoding, or a return of None from the chardet library:
     inputEncodingType= dealWithEncoding.detectEncoding(inputFileName)
 else:
     inputEncodingType=defaultEncoding

@@ -131,7 +131,8 @@ one two three | one | two three
     - [docs.python.org/3.4/library/codecs.html#error-handlers](//docs.python.org/3.4/library/codecs.html#error-handlers), and [More Examples](//www.w3schools.com/python/ref_string_encode.asp).
     - The default error handler for input files is `strict` which means 'crash the program if the encoding specified does not match the file perfectly'.
     - The default error handler for the output file is `namereplace` and it requires Python 3.5+. For Python <=3.4, the default is `backslashreplace`
-        - These obnoxious error handlers were chosen to make it obvious that there were conversion errors but also not crash catastrophically and to make it easy to do ctrl+f replacements to fix any problems. If there are more than one or two such errors per file, then the chosen source file encodings are probably incorrect.
+        - These obnoxious error handlers were chosen to make it obvious that there were conversion errors but also not crash catastrophically and to make it easy to do ctrl+f replacements to fix any problems.
+        - If there are more than one or two such errors per file, then the chosen source file encodings are probably incorrect.
 - If the `chardet` library is available (Python 3.7+), it can be used to try to detect the character encoding of files via heuristics, but that is obviously very error prone.
     - To make it available: `pip install chardet`
     - The following library that actually implements chardet must also be present: `resources/dealWithEncoding.py`
@@ -218,10 +219,8 @@ endlocal
     - Make sure `Add to Path` is checked/selected.
 - Optional: Improved text encoding detection for files requires the `chardet` library.
     - The `chardet` library says it requires Python 3.7+: [pypi.org/project/chardet](//pypi.org/project/chardet/) Install using:
-        - #Install latest version of pip package manager.
-        - `python -m pip install --upgrade pip`   
-        - #Use `pip` to install `chardet`.
-        - `pip install chardet`                            
+        - `python -m pip install --upgrade pip`     #Install latest version of pip package manager.
+        - `pip install chardet`                             #Use `pip` to install `chardet`.
     - If this library is not available, then the default encoding of `utf-8` will always be used instead.
 - To compile: pip, [pyinstaller](//www.pyinstaller.org).
     - #Use `pip` to install `pyinstaller`.
@@ -272,5 +271,5 @@ Look for the output under the 'dist' folder.
 - Python standard library's [license](//docs.python.org/3/license.html).
 - chardet library's license is [LGPL v2+](https://pypi.org/project/chardet/).
 - pyinstaller's [license](//pyinstaller.org/en/stable/license.html).
-- For the .py files in this project, pick your license: Public Domain, GPL (any), or BSD (any), or MIT/Apache.
+- For the .py files in this project, pick your license: GPL (any), or BSD (any), or MIT/Apache.
 - If compiled with pyinstaller and then also distributed outside of your organization, then the executable file(s) is/are subject to Python's license, and the chardet library is subject to LGPL.

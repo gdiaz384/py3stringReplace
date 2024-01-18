@@ -83,6 +83,20 @@ if commandLineArguments.version == True:
     sys.exit(('Current version is from: '+currentVersion).encode(consoleEncoding))
 debug=commandLineArguments.debug
 
+#Test code for messing with console encoding.
+#Nothing works. Just specify .encode() .Otherwise the console will output all ????'s.
+#python 3.7+ only
+#sys.stdout.reconfigure(encoding='cp437')
+#sys.stdout=codecs.getwriter('utf-8')(sys.stdout.detatch())#
+#python 3.1+
+#def make_streams_binary():
+#    sys.stdin = sys.stdin.detach()
+#    sys.stdout = sys.stdout.detach()
+#make_streams_binary()
+#Also doesn't work.
+#sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
+
+#print(('pie').encode('utf-8'))
 
 #check to make sure inputFile.txt actually exists
 if os.path.isfile(inputFileName) != True:

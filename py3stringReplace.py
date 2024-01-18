@@ -14,7 +14,7 @@ Usage: python py3stringReplace.py myinput.txt myTable.txt
 Error handling documentation: docs.python.org/3.4/library/codecs.html#error-handlers
 Example: www.w3schools.com/python/ref_string_encode.asp
 
-Pick your license: Public Domain, GPL (any), or BSD (any), or MIT/Apache
+Pick your license: GPL (any), or BSD (any), or MIT/Apache
 
 ###stop reading now###
 
