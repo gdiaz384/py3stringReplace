@@ -130,12 +130,13 @@ one two three | one | two three
 - Some character encodings cannot be converted to other encodings. When such errors occur, use the following error handling options:
     - [docs.python.org/3.4/library/codecs.html#error-handlers](//docs.python.org/3.4/library/codecs.html#error-handlers), and [More Examples](//www.w3schools.com/python/ref_string_encode.asp).
     - The default error handler for input files is `strict` which means 'crash the program if the encoding specified does not match the file perfectly'.
-    - The default error handler for the output file is `namereplace` and it requires Python 3.5+. For Python <=3.4, the default is `backslashreplace`
+    - The default error handler for the output file is `namereplace` and it requires Python 3.5+. For Python <=3.4, the default is `backslashreplace`.
         - These obnoxious error handlers were chosen to make it obvious that there were conversion errors but also not crash catastrophically and to make it easy to do ctrl+f replacements to fix any problems.
         - If there are more than one or two such errors per file, then the chosen source file encodings are probably incorrect.
 - If the `chardet` library is available (Python 3.7+), it can be used to try to detect the character encoding of files via heuristics, but that is obviously very error prone.
     - To make it available: `pip install chardet`
     - The following library that actually implements chardet must also be present: `resources/dealWithEncoding.py`
+    - If both of the above are available, the encoding of files will be detected via heuristics if not otherwise specified.
     - If both of the above are not available, then everything will be assumed to be `utf-8` if not otherwise specified.
 
 ## Advanced Usage Guide:
@@ -252,7 +253,7 @@ Development: Stopped. Open an issue for bugs, feature, or compile requests.
 1. Create a text file to use as `replacementList.txt`. See **Replacement List Syntax** and `replacementLists\unlocalize.txt` for additional information and an example.
 1. Refer to the **Example Usage Guide** above for usage as well as `>py3StringReplace --help`
 
-### Compile(exe) Guide:
+### Compile(.exe) Guide:
 
 - If downloading from github directly, remember to change the line ending back from broken-because-of-github by using [Notepad++](//notepad-plus-plus.org/download) or VS Code before attempting to compile. 
 - Pyinstaller compatible character encodings for .py files are ascii, ansi, and utf-8 (without bom).

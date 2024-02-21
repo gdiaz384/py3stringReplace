@@ -31,19 +31,19 @@ usageHelp='\n Usage: python py3stringReplace.py myInputFile.txt myReplacementTab
 
 import argparse                #used to add command line options
 import os.path                  #test if file exists
+from pathlib import Path    #override file in file system with another
 import sys                        #end program on fail condition
 import io                          #manipulate files (open/read/write/close)
 from io import IOBase      #test if variable is a file object (an "IOBase" object)
-from pathlib import Path    #override file in file system with another, experimental library. Not clear why needed, but might break something if removed, so just leave it.
 #import csv                      #the dream; replacementList.csv
-import codecs                 #Improves error handling when dealing with text file codecs.
+
 try:
     import resources.dealWithEncoding as dealWithEncoding
     dealWithEncodingLibraryIsAvailable=True
 except:
     dealWithEncodingLibraryIsAvailable=False
 
-#Using the 'namereplace' error handler for text encoding requires Python 3.5+, so default to an old one.
+#Using the 'namereplace' error handler for text encoding requires Python 3.5+, so use an older one if needed.
 sysVersion=int(sys.version_info[1])
 if sysVersion >= 5:
     defaultOutputEncodingErrorHandler='namereplace'
@@ -162,7 +162,7 @@ if os.path.isfile(replaceListName) != True:
     sys.exit(('Error. Unable to find replacement list "' + replaceListName + '"' + usageHelp).encode(consoleEncoding))
 
 #read replacement list
-replaceListFile=codecs.open(replaceListName,'r',encoding=replacementListEncodingType,errors=inputErrorHandling)
+replaceListFile=open(replaceListName,'r',encoding=replacementListEncodingType,errors=inputErrorHandling)
 replacementTable=dict({})
 
 #Use the following syntax to update the dictionary:
@@ -192,12 +192,12 @@ if debug == True:
 
 #For information on error handling: docs.python.org/3.4/library/codecs.html#error-handlers
 #myInputFile=io.open(inputFileName,mode='r',encoding=inputFileEncodingType)
-myInputFile=codecs.open(inputFileName,mode='r',encoding=inputFileEncodingType,errors=inputErrorHandling)
+myInputFile=open(inputFileName,mode='r',encoding=inputFileEncodingType,errors=inputErrorHandling)
 myInputFileContents=myInputFile.read()
 myInputFile.close() #tidy tidy
 if showMatching!=True:
     #myWriteFile=io.open(outputFileName,mode='w',encoding=outputEncodingType)
-    myWriteFile=codecs.open(outputFileName,mode='w', encoding=outputEncodingType,errors=outputErrorHandling)
+    myWriteFile=open(outputFileName,mode='w', encoding=outputEncodingType,errors=outputErrorHandling)
 else:
     myWriteFile=outputFileName
 

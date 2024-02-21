@@ -5,7 +5,7 @@ Description: A small helper library to help with dealing with text encoding in f
 
 Usage: See below. Like at the bottom.
 
-License: See main project.
+License: See main project/readme.
 
 ##stop reading now##
 

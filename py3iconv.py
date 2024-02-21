@@ -10,7 +10,7 @@ py3iconv.py replaces strings in a text file with other strings from a replacemen
 
 Usage: python py3iconv -h
 
-Pick your license: Public Domain, GPL (any), or BSD (any), or MIT/Apache
+License: See main project/readme.
 
 ##stop reading now##
 
@@ -204,7 +204,7 @@ def handleDeterminingFileEncoding(myFileName, rawCommandLineOption, defaultEncod
 
 inputEncodingType = handleDeterminingFileEncoding(myFileName=inputFileName, rawCommandLineOption=commandLineArguments.inputEncoding, defaultEncoding=defaultEncodingType)
 
-inputEncodingType 
+#print(inputEncodingType)
 
 #codecs.open is not compatible with 'with' command apparently. It opens the file twice. And disabling buffering (buffering=0) for text files does not work.
 #with codecs.open(inputFileName,mode='r', encoding=inputEncodingType, buffering=1) as openFile: #buffering = 1 doesn't work either, huh? Both buffering and not buffering don't work. What a confusing library.
